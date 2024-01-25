@@ -1,14 +1,88 @@
-/* Опишите в этом файле все keyframes для проекта и стили анимаций иконки Like.
+@keyframes shift {
+  0% {
+    transform: translate(0);
+  }
 
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ theme-dark — класс тёмной темы
-✦ theme-light — класс светлой темы
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
+  100% {
+    transform: translate(-4px);
+  }
+}
 
-Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
-*/
+.card__icon-button:hover .core {
+  fill: var(--Themes-mainColor);
+  transition: fill 0.3s;
+  cursor: pointer;
+}
+
+.card__icon-button:hover .main-body {
+  fill: var(--Themes-mainColor);
+  transition: fill 0.3s 0.05s;
+  cursor: pointer;
+}
+
+.card__icon-button:active .core {
+  fill: var(--filled-heart, red);
+  transition: fill 0.3s;
+}
+
+.card__icon-button:active .main-body {
+  fill: var(--filled-heart, red);
+  transition: fill 0.3s 0.05s;
+}
+
+.is-liked .core,
+.is-liked .main-body,
+.is-liked .contour {
+  fill: var(--filled-heart, red);
+  transition: fill 0.3s;
+}
+
+.is-liked:hover .core,
+.is-liked:hover .main-body,
+.is-liked:hover .contour {
+  fill: var(--filled-heart, red);
+  transition: fill 0.3s;
+}
+
+.like-icon.is-liked .core {
+  fill: var(--filled-heart, red);
+  transition: fill 0.3s;
+}
+
+.like-icon.is-liked .main-body {
+  fill: var(--filled-heart, red);
+  transition: fill 0.3s 0.05s;
+}
+
+.like-icon.is-liked .contour {
+  fill: var(--filled-heart, red);
+  transition: fill 0.3s 0.06s;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+.like-icon.is-liked .heart {
+  animation: scaleUp 0.3s 0.1s ease-in alternate;
+}
+
+@keyframes sparksFill {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.like-icon.is-liked .sparks {
+  animation: sparksFill 0.3s 0.3s ease-in alternate;
+}

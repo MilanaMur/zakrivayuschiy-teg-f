@@ -1,1 +1,28 @@
-/* В этом файле будут храниться все значения переменных в исходном состоянии, а так же их изменения в зависимости от ширины устройства */
+:root {
+  --content-inline-size: clamp(23.438rem, 30.141vw + 16.373rem, 43.5rem);
+  --accent-font: "Press Start 2P";
+  --main-font: "Inter";
+  --min-wght: 465;
+  --max-wght: 785;
+  --button-text-color: #fff;
+  --Themes-mainColor: #000;
+  --Themes-background: #fff;
+  --background-pattern: repeating-linear-gradient(
+      90deg,
+      #d3d3d3 0 2px,
+      transparent 2px 4px
+    ),
+    repeating-linear-gradient(#d3d3d3 0 2px, transparent 2px 4px),
+    linear-gradient(#e7e7e7 0 0.01%, #1a1a1a 100%);
+  --filled-heart: red;
+}
+
+@media (width <= 375px) {
+  :root {
+    --content-inline-size: 100vw;
+  }
+
+  .footer__button {
+    flex-direction: column;
+  }
+}

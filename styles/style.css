@@ -1,20 +1,385 @@
-/* Здесь вы напишете основную часть стилей страницы.
-
-Будьте внимательны! Для корректной работы скриптов на этом сайте нужно, чтобы в HTML некоторые классы были названы особым образом:
-✦ theme-dark — класс тёмной темы
-✦ theme-light — класс светлой темы
-✦ like-icon — для svg-иконки анимированного сердца
-✦ card__like-button — для кнопки Like рядом с иконкой
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ card__icon-button — для кнопки, оборачивающей иконку
-✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
-✦ button__text — для обозначения текстового элемента внутри кнопки
-
-Кроме этого, не меняйте HTML переключателя тем. Его разметка также гарантирует работу своего скрипта.
-
-*/
-
 .page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--main-font), "Inter", sans-serif;
   min-inline-size: 320px;
   min-block-size: 100dvb;
+  background-image: var(--background-pattern);
+  background-color: var(--Themes-background, #fff);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* HEADER */
+
+.header {
+  inline-size: var(--content-inline-size);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  color: var(--Themes-mainColor, #000);
+  border: 2px solid var(--Themes-mainColor, #000);
+  background-color: var(--Themes-background, #fff);
+  padding-block-start: clamp(7.5rem, 1.408vw + 7.17rem, 8.438rem);
+  padding-block-end: 25px;
+  margin: 100px 0;
+}
+
+.header__logo {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
+  line-height: normal;
+  padding-block-end: 20px;
+}
+
+.header__title {
+  text-transform: uppercase;
+  font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+  line-height: normal;
+  padding-block-end: 25px;
+}
+
+.header__theme-menu {
+  margin-inline: clamp(9.625rem, 15.117vw + 6.082rem, 19.688rem) auto;
+}
+
+.theme-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.theme-menu__button {
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: normal;
+  background-color: transparent;
+  border-color: transparent;
+  padding: 0;
+}
+
+.theme-menu__button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.theme-menu__button:focus {
+  outline: none;
+  opacity: 0.6;
+}
+
+.theme-menu__button:disabled {
+  position: relative;
+  opacity: 0.6;
+}
+
+.theme-menu__button:disabled::before {
+  content: "▶";
+  position: absolute;
+  inset-inline-start: -15px;
+  inset-block-end: 0;
+  opacity: 0.6;
+  animation: shift 0.5s infinite ease-in-out alternate;
+}
+
+.theme-menu__button::after {
+  display: block;
+  inline-size: 100%;
+  block-size: 2px;
+  content: "";
+  background-color: var(--Themes-mainColor);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.theme-menu__button:focus-visible::after {
+  transform: scaleX(1);
+  transition: transform 0.3s ease;
+}
+
+/* КАРТОЧКИ-ПОСТЫ */
+
+.content {
+  inline-size: var(--content-inline-size);
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  inline-size: var(--content-inline-size);
+  font-family: var(--main-font), "Inter", sans-serif;
+  color: var(--Themes-mainColor, #000);
+  border: 2px solid var(--Themes-mainColor, #000);
+  background-color: var(--Themes-background, #fff);
+}
+
+.card__title {
+  font-size: 18px;
+  font-weight: var(--max-wght, 785);
+  line-height: normal;
+  padding: 5px 10px;
+  border-bottom: 2px solid var(--Themes-mainColor, #000);
+}
+
+.card__wrapper {
+  position: relative;
+}
+
+.img-wrapper__line {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: clamp(1.438rem, 0.188vw + 1.393rem, 1.563rem);
+  inset-inline-end: clamp(0.688rem, 1.315vw + 0.379rem, 1.563rem);
+  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--Themes-mainColor);
+  text-shadow: 0 0 1px var(--Themes-background);
+  opacity: 0.5;
+  mix-blend-mode: hard-light;
+}
+
+@supports (
+  (-webkit-text-stroke: 1px var(--Themes-background, #fff)) or
+    (text-stroke: 1px var(--Themes-background, #fff))
+) {
+  .img-wrapper__line {
+    -webkit-text-stroke: 1px var(--Themes-background, #fff);
+    text-stroke: 1px var(--Themes-background, #fff);
+    text-shadow: none;
+  }
+}
+
+.card__img {
+  inline-size: 100%;
+  aspect-ratio: 1/1;
+  transition: filter 1s ease-out;
+}
+
+.card__img:hover {
+  filter: none;
+}
+
+.filter_sepia_blur {
+  filter: sepia(1) blur(4px);
+}
+
+.filter_opacity {
+  filter: opacity(0.4);
+}
+
+.filter_saturate {
+  filter: saturate(2);
+}
+
+.filter_brightness {
+  filter: brightness(1.3);
+}
+
+.filter_invert {
+  filter: invert(0.2);
+}
+
+.filter_grayscale {
+  filter: grayscale(1);
+}
+
+.filter_hue-rotate {
+  filter: hue-rotate(290deg);
+}
+
+.filter_contrast {
+  filter: contrast(1.5);
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 25px 25px 0 25px;
+}
+
+.card__text {
+  font-size: 18px;
+  font-weight: var(--min-wght, 465);
+  line-height: 21px; /* 116.667% */
+}
+
+.card__buttons-wrapper {
+  display: flex;
+  justify-content: center;
+  align-self: end;
+  gap: 12px;
+  padding: 25px;
+}
+
+/* СЕРДЦЕ */
+
+.like-icon {
+  justify-self: center;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.contour {
+  fill: var(--Themes-mainColor);
+}
+
+.core {
+  fill: transparent;
+  transition: fill 0.3s 0.03s;
+}
+
+.main-body {
+  fill: transparent;
+  transition: fill 0.3s;
+}
+
+.sparks {
+  fill: var(--filled-heart, red);
+  opacity: 0;
+}
+
+.card__icon-button {
+  padding: 0;
+  inline-size: 39px;
+  block-size: 36px;
+  border: 2px solid transparent;
+  background-color: transparent;
+}
+
+.card__icon-button:focus {
+  outline: none;
+}
+
+.card__icon-button:focus-visible {
+  border-color: var(--Themes-mainColor);
+  transition: border 0.3s ease;
+}
+
+/* b.LIKE */
+
+.card__like-button {
+  inline-size: 130px;
+  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  padding: 10px 15px;
+  border: 2px solid var(--Themes-mainColor, #000);
+  background-color: transparent;
+}
+
+/* FOOTER */
+
+.footer {
+  margin-block-start: 55px;
+  margin-block-end: 100px;
+}
+
+.footer__button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  border: 2px solid var(--Themes-mainColor, #000);
+  background-color: var(--Themes-background, #fff);
+  padding: 15px 19px;
+}
+
+.button {
+  position: relative;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  box-shadow: 2px 2px 0 0 var(--Themes-mainColor);
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  block-size: 100%;
+  background-color: var(--Themes-mainColor);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.button:hover::before {
+  transform: scaleX(1);
+}
+
+.button__floppy {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  mix-blend-mode: difference;
+}
+
+.button__text {
+  position: relative;
+  z-index: 2;
+  vertical-align: middle;
+  color: var(--button-text-color, #fff);
+  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  font-size: 14px;
+  line-height: 90%;
+  mix-blend-mode: difference;
+}
+
+/* ВСПЛЫВАЮЩЕЕ */
+
+.saving {
+  position: fixed;
+  inset: 0;
+  border: 2px solid var(--Themes-mainColor);
+  background-color: var(--Themes-background);
+  padding: 32px 42px;
+}
+
+.saving[open] {
+  display: grid;
+}
+
+.saving:not([open]) {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.saving::backdrop {
+  background-color: rgb(0 0 0 / 0.75);
+}
+
+.saving__wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  color: var(--Themes-mainColor);
+  padding-block-end: 30px;
+}
+
+.saving__text {
+  font-family: var(--accent-font), "Press Start 2P", fantasy;
+}
+
+.saving__button {
+  inline-size: 293px;
+  color: var(--Themes-mainColor);
+  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  border: 2px solid var(--Themes-mainColor);
+  background-color: transparent;
+  padding: 9px 17px;
 }
