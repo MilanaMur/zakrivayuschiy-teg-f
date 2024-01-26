@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: var(--main-font), "Inter", sans-serif;
+  font-family: var(--main-font, "Inter"), sans-serif;
+  font-variation-settings: "wght" var(--min-wght, 400);
   min-inline-size: 320px;
   min-block-size: 100dvb;
   background-image: var(--background-pattern);
@@ -18,7 +19,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  font-family: var(--accent-font, "PressStart2P"), fantasy;
   color: var(--Themes-mainColor, #000);
   border: 2px solid var(--Themes-mainColor, #000);
   background-color: var(--Themes-background, #fff);
@@ -33,6 +34,10 @@
   font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
   line-height: normal;
   padding-block-end: 20px;
+}
+
+.header__logo:focus {
+  outline: none;
 }
 
 .header__title {
@@ -53,16 +58,18 @@
 }
 
 .theme-menu__button {
+  position: relative;
   text-transform: uppercase;
   font-size: 14px;
   line-height: normal;
   background-color: transparent;
   border-color: transparent;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
   padding: 0;
 }
 
 .theme-menu__button:hover {
-  cursor: pointer;
   opacity: 0.6;
 }
 
@@ -72,7 +79,7 @@
 }
 
 .theme-menu__button:disabled {
-  position: relative;
+  pointer-events: none;
   opacity: 0.6;
 }
 
@@ -93,17 +100,20 @@
   background-color: var(--Themes-mainColor);
   transform: scaleX(0);
   transform-origin: left;
+  transition: transform 0.3s ease;
 }
 
 .theme-menu__button:focus-visible::after {
   transform: scaleX(1);
-  transition: transform 0.3s ease;
+}
+
+.main {
+  inline-size: var(--content-inline-size);
 }
 
 /* КАРТОЧКИ-ПОСТЫ */
 
-.content {
-  inline-size: var(--content-inline-size);
+.content-list {
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -113,7 +123,7 @@
   display: flex;
   flex-direction: column;
   inline-size: var(--content-inline-size);
-  font-family: var(--main-font), "Inter", sans-serif;
+  font-family: var(--main-font, "Inter"), sans-serif;
   color: var(--Themes-mainColor, #000);
   border: 2px solid var(--Themes-mainColor, #000);
   background-color: var(--Themes-background, #fff);
@@ -121,7 +131,7 @@
 
 .card__title {
   font-size: 18px;
-  font-weight: var(--max-wght, 785);
+  font-variation-settings: "wght" var(--max-wght, 700);
   line-height: normal;
   padding: 5px 10px;
   border-bottom: 2px solid var(--Themes-mainColor, #000);
@@ -129,14 +139,15 @@
 
 .card__wrapper {
   position: relative;
+  border-bottom: 2px solid var(--Themes-mainColor, #000);
 }
 
-.img-wrapper__line {
+.wrapper__line {
   position: absolute;
   z-index: 1;
   inset-block-start: clamp(1.438rem, 0.188vw + 1.393rem, 1.563rem);
   inset-inline-end: clamp(0.688rem, 1.315vw + 0.379rem, 1.563rem);
-  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  font-family: var(--accent-font, "PressStart2P"), fantasy;
   font-size: 14px;
   text-transform: uppercase;
   color: var(--Themes-mainColor);
@@ -149,21 +160,17 @@
   (-webkit-text-stroke: 1px var(--Themes-background, #fff)) or
     (text-stroke: 1px var(--Themes-background, #fff))
 ) {
-  .img-wrapper__line {
+  .wrapper__line {
     -webkit-text-stroke: 1px var(--Themes-background, #fff);
     text-stroke: 1px var(--Themes-background, #fff);
     text-shadow: none;
   }
 }
 
-.card__img {
+.wrapper__img {
+  display: block;
   inline-size: 100%;
   aspect-ratio: 1/1;
-  transition: filter 1s ease-out;
-}
-
-.card__img:hover {
-  filter: none;
 }
 
 .filter_sepia_blur {
@@ -171,7 +178,7 @@
 }
 
 .filter_opacity {
-  filter: opacity(0.4);
+  filter: opacity(0.6);
 }
 
 .filter_saturate {
@@ -187,7 +194,7 @@
 }
 
 .filter_grayscale {
-  filter: grayscale(1);
+  filter: grayscale(0.5);
 }
 
 .filter_hue-rotate {
@@ -205,10 +212,9 @@
   padding: 25px 25px 0 25px;
 }
 
-.card__text {
+.content__text {
   font-size: 18px;
-  font-weight: var(--min-wght, 465);
-  line-height: 21px; /* 116.667% */
+  line-height: 1.16667em; /* 21px*/
 }
 
 .card__buttons-wrapper {
@@ -222,36 +228,18 @@
 /* СЕРДЦЕ */
 
 .like-icon {
+  inline-size: 39px;
+  block-size: 36px;
   justify-self: center;
   align-self: center;
-  flex-shrink: 0;
-}
-
-.contour {
-  fill: var(--Themes-mainColor);
-}
-
-.core {
-  fill: transparent;
-  transition: fill 0.3s 0.03s;
-}
-
-.main-body {
-  fill: transparent;
-  transition: fill 0.3s;
-}
-
-.sparks {
-  fill: var(--filled-heart, red);
-  opacity: 0;
 }
 
 .card__icon-button {
   padding: 0;
-  inline-size: 39px;
-  block-size: 36px;
+
   border: 2px solid transparent;
   background-color: transparent;
+  transition: border 0.3s ease;
 }
 
 .card__icon-button:focus {
@@ -260,17 +248,13 @@
 
 .card__icon-button:focus-visible {
   border-color: var(--Themes-mainColor);
-  transition: border 0.3s ease;
 }
 
 /* b.LIKE */
 
 .card__like-button {
   inline-size: 130px;
-  font-family: var(--accent-font), "Press Start 2P", fantasy;
   padding: 10px 15px;
-  border: 2px solid var(--Themes-mainColor, #000);
-  background-color: transparent;
 }
 
 /* FOOTER */
@@ -282,16 +266,25 @@
 
 .footer__button {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 8px;
-  font-family: var(--accent-font), "Press Start 2P", fantasy;
-  border: 2px solid var(--Themes-mainColor, #000);
-  background-color: var(--Themes-background, #fff);
   padding: 15px 19px;
+}
+
+@media (width <= 375px) {
+  .footer__button {
+    flex-direction: column;
+  }
 }
 
 .button {
   position: relative;
+  cursor: pointer;
+  font-family: var(--accent-font, "PressStart2P"), fantasy;
+  border: 2px solid var(--Themes-mainColor, #000);
+  background-color: var(--Themes-background, #fff);
+  appearance: none;
 }
 
 .button:focus {
@@ -300,10 +293,6 @@
 
 .button:focus-visible {
   box-shadow: 2px 2px 0 0 var(--Themes-mainColor);
-}
-
-.button:hover {
-  cursor: pointer;
 }
 
 .button::before {
@@ -324,8 +313,17 @@
 .button__floppy {
   position: relative;
   z-index: 2;
-  flex-shrink: 0;
   mix-blend-mode: difference;
+}
+
+.footer .button__floppy {
+  inline-size: 21px;
+  block-size: 21px;
+}
+
+.saving__wrapper .button__floppy {
+  inline-size: 39px;
+  block-size: 39px;
 }
 
 .button__text {
@@ -333,9 +331,9 @@
   z-index: 2;
   vertical-align: middle;
   color: var(--button-text-color, #fff);
-  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  font-family: var(--accent-font, "PressStart2P"), fantasy;
   font-size: 14px;
-  line-height: 90%;
+  line-height: 0.9em; /* 12.6px */
   mix-blend-mode: difference;
 }
 
@@ -344,9 +342,10 @@
 .saving {
   position: fixed;
   inset: 0;
+  inline-size: clamp(21.313rem, 1.502vw + 20.96rem, 22.313rem);
   border: 2px solid var(--Themes-mainColor);
   background-color: var(--Themes-background);
-  padding: 32px 42px;
+  padding: 30px 40px;
 }
 
 .saving[open] {
@@ -363,22 +362,25 @@
 }
 
 .saving__wrapper {
-  display: flex;
-  flex-direction: row;
+  display: grid;
   align-items: center;
+  grid-template-columns: min-content 1fr;
   gap: 20px;
   color: var(--Themes-mainColor);
   padding-block-end: 30px;
 }
 
-.saving__text {
-  font-family: var(--accent-font), "Press Start 2P", fantasy;
+.wrapper__text {
+  font-size: 14px;
+  line-height: 1.5em; /* 21px */
+  text-transform: uppercase;
+  font-family: var(--accent-font, "PressStart2P"), fantasy;
 }
 
 .saving__button {
-  inline-size: 293px;
   color: var(--Themes-mainColor);
-  font-family: var(--accent-font), "Press Start 2P", fantasy;
+  font-family: var(--accent-font, "PressStart2P"), fantasy;
+  text-transform: uppercase;
   border: 2px solid var(--Themes-mainColor);
   background-color: transparent;
   padding: 9px 17px;

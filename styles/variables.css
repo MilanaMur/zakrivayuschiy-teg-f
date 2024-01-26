@@ -1,9 +1,9 @@
 :root {
   --content-inline-size: clamp(23.438rem, 30.141vw + 16.373rem, 43.5rem);
-  --accent-font: "Press Start 2P";
+  --accent-font: "PressStart2P";
   --main-font: "Inter";
-  --min-wght: 465;
-  --max-wght: 785;
+  --min-wght: 400;
+  --max-wght: 700;
   --button-text-color: #fff;
   --Themes-mainColor: #000;
   --Themes-background: #fff;
@@ -14,15 +14,11 @@
     ),
     repeating-linear-gradient(#d3d3d3 0 2px, transparent 2px 4px),
     linear-gradient(#e7e7e7 0 0.01%, #1a1a1a 100%);
-  --filled-heart: red;
+  --filled-heart: #f00;
 }
 
 @media (width <= 375px) {
   :root {
     --content-inline-size: 100vw;
-  }
-
-  .footer__button {
-    flex-direction: column;
   }
 }
