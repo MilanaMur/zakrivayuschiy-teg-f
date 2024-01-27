@@ -284,6 +284,7 @@
   font-family: var(--accent-font, "PressStart2P"), fantasy;
   border: 2px solid var(--Themes-mainColor, #000);
   background-color: var(--Themes-background, #fff);
+  transition: box-shadow 0.3s ease;
   appearance: none;
 }
 
